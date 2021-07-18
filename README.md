@@ -1,6 +1,6 @@
-# stylish
+# Stylish 💅
 
-> lightweight styled components library for react
+A lightweight css-in-js library for react with the same API as styled-components
 
 [![NPM](https://img.shields.io/npm/v/stylish.svg)](https://www.npmjs.com/package/stylish) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -13,16 +13,19 @@ npm install --save stylish
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import MyComponent from 'stylish'
-import 'stylish/dist/index.css'
+import stylish from "stylish";
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
-}
+const H1 = stylish("h1")(
+  `
+  color: green;
+  `,
+);
+
+const App = () => {
+  return <H1>Hi there</H1>;
+};
 ```
 
 ## License
