@@ -1,4 +1,5 @@
 import React from "react";
+import domElementsUtil from "./util/domElements.util";
 
 import {
   createAndInjectCSSClassName,
@@ -9,7 +10,7 @@ import {
 
 const stylish = (Tag) => (styles) => {
   return function NewComponent({ children, ...props }) {
-    const preprocessedStyles = preprocessStyles(styles);
+    const preprocessedStyles = preprocessStyles(styles[0]);
 
     let className = getExistingClassNameIfExists(preprocessedStyles);
 
@@ -31,4 +32,10 @@ const stylish = (Tag) => (styles) => {
   };
 };
 
-export default stylish;
+const enhancedStylish = {};
+
+domElementsUtil.forEach((domElement) => {
+  enhancedStylish[domElement] = stylish(domElement);
+});
+
+export default enhancedStylish;
