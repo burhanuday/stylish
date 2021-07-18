@@ -1,10 +1,16 @@
-import React from 'react'
+import React from "react";
 
-import { ExampleComponent } from 'stylish'
-import 'stylish/dist/index.css'
+import stylish from "stylish";
+import "stylish/dist/index.css";
+
+const H1 = stylish("h1")(
+  `
+  color: green;
+  `,
+);
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
-}
+  return <H1>Hi there</H1>;
+};
 
-export default App
+export default App;
