@@ -15,7 +15,7 @@ const createAndInjectCSSClassName = (className, styles) => {
   );
 };
 
-const getExistingClassNameIfExists = (styles) => classNameCache.has(styles);
+const getExistingClassNameIfExists = (styles) => classNameCache.get(styles);
 
 const preprocessStyles = (styles) => serialize(compile(styles), stringify);
 
@@ -29,7 +29,7 @@ const stylish = (Tag) => (styles) => {
   return function NewComponent({ children, ...props }) {
     const preprocessedStyles = preprocessStyles(styles);
 
-    let className = getExistingClassNameIfExists(preprocessStyles);
+    let className = getExistingClassNameIfExists(preprocessedStyles);
 
     if (!className) {
       className = generateUniqueClassname(preprocessedStyles);
