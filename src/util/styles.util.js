@@ -1,11 +1,17 @@
 import { compile, serialize, stringify } from "stylis";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 import { ClassNameCacheFactory } from "./cache.util";
+import { log } from "./log.util";
+
+const alphabet =
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const nanoid = customAlphabet(alphabet, 10);
 
 export const preprocessStyles = (styles) =>
   serialize(compile(styles), stringify);
 
 export const createAndInjectCSSClassName = (className, styles) => {
+  log("css injection", [className, styles]);
   const styleSheet = document.styleSheets[0];
   styleSheet.insertRule(
     `
@@ -14,6 +20,8 @@ export const createAndInjectCSSClassName = (className, styles) => {
         }
       `,
   );
+  const classNameCache = ClassNameCacheFactory.getInstance();
+  classNameCache.set(styles, className);
 };
 
 export const getExistingClassNameIfExists = (styles) => {
@@ -22,8 +30,6 @@ export const getExistingClassNameIfExists = (styles) => {
 };
 
 export const generateUniqueClassname = (styles) => {
-  const classNameCache = ClassNameCacheFactory.getInstance();
   const uniqueId = nanoid(10);
-  classNameCache.set(styles, uniqueId);
   return uniqueId;
 };

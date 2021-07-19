@@ -9,7 +9,11 @@ import {
 } from "./util/styles.util";
 
 const stylish = (Tag) => (styles) => {
-  return function NewComponent({ children, ...props }) {
+  const NewComponent = ({ children, ...props }) => {
+    if (!styles[0]) {
+      return <Tag className={props.className || ""}>{children}</Tag>;
+    }
+
     const preprocessedStyles = preprocessStyles(styles[0]);
 
     let className = getExistingClassNameIfExists(preprocessedStyles);
@@ -30,12 +34,12 @@ const stylish = (Tag) => (styles) => {
       </Tag>
     );
   };
+  // NewComponent.displayName = Tag.displayName;
+  return NewComponent;
 };
 
-const enhancedStylish = {};
-
 domElementsUtil.forEach((domElement) => {
-  enhancedStylish[domElement] = stylish(domElement);
+  stylish[domElement] = stylish(domElement);
 });
 
-export default enhancedStylish;
+export default stylish;
