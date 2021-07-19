@@ -3,19 +3,29 @@ import React from "react";
 import stylish from "stylish";
 import "stylish/dist/index.css";
 
-const H1 = stylish.h1`
-  color: green;
+const Button = stylish.a`
+  display: inline-block;
+  border-radius: 3px;
+  padding: 0.5rem 0;
+  margin: 0.5rem 1rem;
+  width: 11rem;
+  background: transparent;
+  color: black;
+  border: 2px solid black;
 `;
 
-const H1Another = stylish.h1`
-  color: green;
+const RedButton = stylish(Button)`
+  color: red;
 `;
+
+const P = stylish.p``;
 
 const App = () => {
   return (
     <>
-      <H1>Hi there</H1>
-      <H1Another>Hi there again</H1Another>
+      <Button>Hi there</Button>
+      <RedButton>Hi there</RedButton>
+      <P>Some text without styles</P>
     </>
   );
 };
